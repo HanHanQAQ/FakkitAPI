@@ -12,7 +12,9 @@ public class FakkitAPI implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		Fakkit.init();
 		LOGGER.info("FakkitAPI initialized");
+
+
 	}
 }
