@@ -38,7 +38,7 @@ public class ExampleCommand extends Command {
 
 写完这些了先别急，你还要注册一下命令。
 
-随便找个地方，然后把这一行敲上。
+在modinit那里把这一行敲上。
 
 ```java
 Fakkit.getCommmandManager().register(new ExampleCommand());
