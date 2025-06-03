@@ -41,7 +41,17 @@ public class CommandManager {
     }
 
     public static LiteralArgumentBuilder<ServerCommandSource> getCommandBuilder(Command command, int argIndex) {
-        LiteralArgumentBuilder<ServerCommandSource> builder = net.minecraft.server.command.CommandManager.literal(command.getCommand());
+        LiteralArgumentBuilder<ServerCommandSource> builder = net.minecraft.server.command.CommandManager.literal(command.getCommand()).executes(context -> {
+            ArrayList<String> args = new ArrayList<>();
+            for (String arg : context.getInput().split(" ")) {
+                if (arg.equalsIgnoreCase(command.getCommand())) {
+                    continue;
+                }
+                args.add(arg);
+            }
+            command.execute(new CommandSender(CommandUtil.getSenderType(context.getSource()),context.getSource()),command.getCommand(),args.toArray(new String[0]));
+            return 1;
+        });
 
         ArrayList<RequiredArgumentBuilder<ServerCommandSource, String>> requiredArgumentBuilders = new ArrayList<>();
         for (int i = 0; i < argIndex; i++) {
